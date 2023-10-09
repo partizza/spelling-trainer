@@ -1,0 +1,57 @@
+plugins {
+    id 'application'
+    id 'org.springframework.boot' version '3.1.4'
+}
+
+group = 'ua.dev.gal'
+version = "${version}"
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.17
+targetCompatibility = 1.17
+
+application {
+    mainClass.set("ua.dev.gal.spelling.trainer.Main")
+}
+
+springBoot {
+    buildInfo {
+        properties {
+            additional = ['version': project.version]
+        }
+    }
+}
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter:${springBootVer}")
+    implementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootVer}"
+    implementation ("org.apache.logging.log4j:log4j-spring-boot:${log4jBoot}") {
+        exclude group:'commons-logging', module:'commons-logging'
+    }
+    implementation "org.springframework.shell:spring-shell-starter:${springBootVer}"
+    implementation "org.springframework.shell:spring-shell-starter-jna:${springBootVer}"
+    compileOnly "org.projectlombok:lombok:${lombokVer}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVer}"
+    implementation "com.theokanning.openai-gpt3-java:service:${openAiVer}"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVer}"
+    testImplementation "org.springframework.shell:spring-shell-starter-test:${springBootVer}"
+    testImplementation "org.awaitility:awaitility:${awaitilityVer}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVer}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVer}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVer}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVer}"
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,16 @@
+OPENAI_TOKEN: your_OpenAI_token
+
+spring:
+  main:
+    banner-mode: off
+  shell:
+    command:
+      history:
+        enabled: false
+      script:
+        enabled: false
+
+## disable console logging
+logging:
+  pattern:
+    console:
